@@ -1,2 +1,5 @@
 youtube-transcript-api
 streamlit
+google-cloud-aiplatform>=1.38
+TTS
+python-dotenv

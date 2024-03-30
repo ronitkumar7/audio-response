@@ -1,0 +1,107 @@
+Introduction
+In this video, I will explain
+the main pieces of notation that we commonly use to talk about sets.
+What is a set?
+What is a set?
+We are going to think of a set simply as a "collection of things."
+For us?
+Most of the time it will be sets of numbers.
+But it could be anything.
+We call those "things" the elements of the set.
+I put an asterisk here because if you ask a logician,
+they will tell you that this definition is not good enough.
+They would be right.
+For the purpose of Logic and Foundations, this definition is problematic.
+But for our purpose, it's good enough.
+So we are going to keep it simple, and go with it.
+Here are two examples:
+I'm describing two sets here, and I've given a name to both sets.
+The first set is called "A." The second set is called "B."
+And when I describe the set,
+I use CURLY BRACES to indicate where the description begins and ends.
+And I'm describing them differently.
+The first set is a set of all even integers.
+So this set has infinitely many elements.
+For the second set,
+I've provided a complete list of the elements.
+So B is a set that has three elements:
+the number 4, the number 5, and the number 6.
+Set notation – elements and comparisons
+Next: some notation.
+These two symbols
+are used to indicate that something is, or isn't an element of a set.
+I'm going to use these three sets: B, C, and D, to construct examples.
+So using that, for example,
+I can say that the number 4 IS an element of B.
+But the number 2 is NOT an element of B,
+because it's not there.
+This symbol is different.
+This represents the relationship between two sets.
+It means that a set is a subset of another set.
+For example:
+Here, I can say that D is a subset of B, because D is contained in B;
+all the elements of D are also elements of B.
+However, this symbol comes with a warning.
+Subset or equal?
+Unfortunately, the notation for "subset" is not universal.
+Some books like to use the symbol I introduced
+to indicate that something is a subset, and MAY be equal.
+And then, they use this symbol,
+the same one without the extra horizontal line,
+to indicate that it may NOT be equal.
+But other books use the second symbol to indicate
+that something is a subset and MAY be equal.
+And then introduce the other new symbol, this one,
+to indicate that it may NOT be equal. And, of course, this is confusing
+because the same symbol may mean two different things.
+My preferred solution is to always use these two symbols only.
+And then, there would be no ambiguity. But what TRULY matters
+is that when you read a math book or you do math with someone,
+you agree on which notation you are going to use.
+More notation – operations
+Back to more notation.
+These two symbols
+are used to describe operations with sets;
+they are used to construct new sets from old sets.
+This symbol means a "UNION of two sets." So a bigger set will be constructed
+by putting together all the elements which are in at least one of them.
+For example, here, I could construct the set
+C union D by putting together all the elements of C and D.
+That would be the set with 2, 4, and 5.
+And this symbol is the "INTERSECTION of sets":
+a new set that contains only the elements which are in BOTH sets.
+Using the same example, C intersection D
+would be a set with only one element: the only thing they have in common,
+which is the number 4.
+And finally, this symbol is used to denote a specific set: the empty set.
+The empty set
+That is a set that has no elements.
+So another way to describe it
+would be a set where the list of elements is, well, empty.
+Important sets of numbers
+To conclude,
+I am going to introduce four important sets of numbers that we use often.
+Everybody uses the same name
+for these four sets of numbers, and the same notation.
+It's uppercase letters with an extra bar.
+N stands for the NATURAL, or, "counting" numbers.
+They're what you've been using since kindergarten.
+Well, this comes with a caveat: I started them at zero.
+Some books begin them at 0; some books begin them at 1.
+Don't get into an argument about whether we should include 0 or not;
+that's a waste of time. There are good reasons to include it,
+or not to include it.
+What matters is that when you do math or read a book,
+you make sure that you know which conventions you are using.
+Next, Z represents the INTEGERS.
+Those are the natural numbers, and ALSO their negative counterparts.
+Next, Q represents the RATIONAL numbers.
+Those are the fractions; the quotients of integers.
+And finally, R represents the REAL numbers.
+For our purposes, I am simply going to say
+that a real number is any number with a decimal expansion.
+There is a better, more formal and rigorous way to define the reals,
+but that is surprisingly deep and complicated;
+that's normally the topic of an analysis course.
+To conclude, notice that these subsets are bigger and bigger.
+Each one is a subset of the next.

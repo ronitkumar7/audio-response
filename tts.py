@@ -10,21 +10,25 @@ def Generate(yt_url: str, text: str) -> str:
     Generate audio for 'text' and return it as bytes.
     To play the audio, write the bytes into filename.wav.
 
-    Prerequisites: pip install yt-dlp; have ffmpeg.exe as well.
+    Prerequisites: pip install yt-dlp; have ffmpeg as well.
     Return value: the path name of the voice file
     """
     fname = urandom(16).hex()
     with ZipFile("ffmpeg.zip", "r") as zf:
         zf.extractall(".")
 
-    system(f"yt-dlp -o {fname} -i {yt_url}")
-    if exists(f"{fname}.webm"):
+    system(f"yt-dlp -f ba -o {fname} -i {yt_url}")
+    if exists(fname):
+        fin = fname
+    elif exists(f"{fname}.webm"):
         fin = f"{fname}.webm"
     elif exists(f"{fname}.mp4"):
         fin = f"{fname}.mp4"
     elif exists(f"{fname}.mkv"):
         fin = f"{fname}.mkv"
-    system(f"ffmpeg -i {fin} -ss 0 -t 60 {fname}.wav")
+    elif exists(f"{fname}.m4a"):
+        fin = f"{fname}.m4a"
+    system(f"ffmpeg -i {fin} {fname}.wav")
     remove(fin)
 
     device = "cuda" if is_available() else "cpu"

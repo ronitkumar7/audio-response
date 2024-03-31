@@ -8,7 +8,8 @@ from tts import Generate
 # from dotenv import load_dotenv
 
 # load_dotenv()
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = r"C:\Users\Aidan\GenAI\audio-response\audio-recognizer-418819-098598b73935.json"
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "./audio-recognizer-418819-098598b73935.json"
+status_msg = ""
 
 def start():
     st.title("Select your video")

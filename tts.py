@@ -16,7 +16,7 @@ def Generate(yt_url: str, text: str) -> bytes:
     with ZipFile("ffmpeg.zip", "r") as zf:
         zf.extractall(".")
 
-    system(f"yt-dlp -i {yt_url} -o {fname}")
+    system(f"yt-dlp -o {fname} -i {yt_url}")
     if exists(f"{fname}.webm"):
         fin = f"{fname}.webm"
     elif exists(f"{fname}.mp4"):

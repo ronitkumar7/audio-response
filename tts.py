@@ -2,6 +2,7 @@ from torch.cuda import is_available
 from TTS.api import TTS
 from os import system, urandom, remove
 from os.path import exists
+from zipfile import ZipFile
 
 def Generate(yt_url: str, text: str) -> bytes:
     """
@@ -12,6 +13,8 @@ def Generate(yt_url: str, text: str) -> bytes:
     Prerequisites: pip install yt-dlp; have ffmpeg.exe as well.
     """
     fname = urandom(16).hex()
+    with ZipFile("ffmpeg.zip", "r") as zf:
+        zf.extractall(".")
 
     system(f"yt-dlp -i {yt_url} -o {fname}")
     if exists(f"{fname}.webm"):
@@ -30,3 +33,4 @@ def Generate(yt_url: str, text: str) -> bytes:
         language="en", file_path=f"{fname}.ts.wav"
     )
     remove(f"{fname}.wav")
+    remove(f"ffmpeg.exe")

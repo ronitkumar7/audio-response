@@ -3,6 +3,7 @@ import streamlit as st
 import vertexai
 from youtube_transcript_api import YouTubeTranscriptApi
 from vertexai.generative_models import GenerativeModel, Part
+from tts import Generate
 # from dotenv import load_dotenv
 
 # load_dotenv()
@@ -14,10 +15,10 @@ def start():
     st.title("Select your video")
 
     # submit the URL that the user inputs into the text field
-    url = st.text_input("YouTube URL")
+    st.session_state["url"] = st.text_input("YouTube URL")
     if st.button(label="Submit URL"):
 
-        st.session_state["url_is_valid"] = submit_url(url)
+        st.session_state["url_is_valid"] = submit_url(st.session_state["url"])
         if st.session_state["url_is_valid"]:
             st.write("URL is valid")
         else:
@@ -29,6 +30,8 @@ def start():
     if st.button(label="Submit Question"):
         if st.session_state["url_is_valid"]:
             answer = prompt(question, st.session_state['transcript'])
+            Generate(st.session_state["url"], answer)
+            # st.audio()
             st.subheader("Response")
             st.write(answer)
         else:

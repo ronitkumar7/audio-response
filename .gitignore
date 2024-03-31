@@ -122,9 +122,9 @@ celerybeat.pid
 # Environments
 .env
 .venv
-env/
+audio-recognizer-418819-098598b73935.json/
 venv/
-ENV/
+audio-recognizer-418819-098598b73935.json/
 env.bak/
 venv.bak/
 

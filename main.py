@@ -7,6 +7,9 @@ from vertexai.generative_models import GenerativeModel, Part
 from tts import Generate
 # from dotenv import load_dotenv
 
+EASY = 0
+HARD = 1
+
 # load_dotenv()
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "./audio-recognizer-418819-098598b73935.json"
 status_msg = ""
@@ -50,25 +53,27 @@ def start():
         else:
             st.write("URL is invalid")
 
-    # generate the response to the question the user asked and display it
+    # generate the textual response to the question the user asked and display it
     question = st.text_input("What's your question?")
 
+    # difficulty setting for explanation
+    level = st.radio("explain it like ...", ["I'm an expert", "I'm five"], horizontal=True)
+
     if st.button(label="Submit Question"):
-        if not st.session_state.get("submit_pressed") and st.session_state.get("url_is_valid") is not None:
+        if st.session_state.get("submit_pressed") is False and st.session_state.get("url_is_valid") is not None:
             st.session_state["submit_pressed"] = True
 
-            answer = prompt(question, st.session_state.get('transcript'))
-
-            if st.session_state.get('transcript') is not None:
-                vocal_filename = Generate(st.session_state["url"], answer)
-                st.subheader("Response")
-                st.write(answer)
-                vocalize(vocal_filename)
+            if level == "I'm an expert":
+                st.session_state["level"] = HARD
             else:
-                print("Error: Transcript has not been loaded")
+                st.session_state["level"] = EASY
+
+            answer = prompt(question, st.session_state.get('transcript'), st.session_state["level"])
+
+            # Generate the voice version of the response and display it
+            display_voice(answer)
         else:
             print("No answer generated since URL is invalid")
-
     st.session_state["submit_pressed"] = False
 
 
@@ -92,21 +97,30 @@ def load_transcript(url: str) -> str:
         return transcript
 
 
-def prompt(question: str, transcript: str) -> str:
+def prompt(question: str, transcript: str, level: int) -> str:
     """Prompt the generative AI model with the question and return the response"""
     vertexai.init(project="audio-recognizer-418819")
     model = GenerativeModel("gemini-1.0-pro")
 
+    #Enable/disable the 'explain it like I'm 5' prompt
+    if level == EASY:
+        easy_prompt = "The first thing you say should always be an analogy of the problem. " \
+                      "Always explain it to me in simple enough terms that a ten year-old " \
+                      "could understand. Do not mention the fact that you are speaking to a " \
+                      "ten year-old. Only answer the question and no other questions."
+    else:
+        easy_prompt = ""
+
     #create the prompt
     prompt_message = """
-    Answer the question only using the transcript of the video given. Respond to me as
-    if you are the person speaking in the video:
+    You are the speaker in this video. Answer the question below only using the transcript of 
+    the video given. {easy_prompt}. Respond to me as if you are the person speaking in the video:
 
     ## Question:
     {question}
     ## Video Transcript:
     {transcript}
-    """.format(question=question, transcript=transcript)
+    """.format(easy_prompt=easy_prompt, question=question, transcript=transcript)
 
     #generate and return the response to the prompt
     try:
@@ -148,6 +162,16 @@ def vocalize(file_path: str):
         st.audio(audio_bytes, format="audio/wav")
     else:
         print("Error: file at " + file_path + " is not a file")
+
+def display_voice(answer):
+    """Generate the voice component on screen"""
+    if st.session_state.get('transcript') is not None:
+        #vocal_filename = Generate(st.session_state["url"], answer)
+        st.subheader("Response")
+        st.write(answer)
+        #vocalize(vocal_filename)
+    else:
+        print("Error: Transcript has not been loaded")
 
 
 # start the program

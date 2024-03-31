@@ -10,7 +10,7 @@ def Generate(yt_url: str, text: str) -> bytes:
     Generate audio for 'text' and return it as bytes.
     To play the audio, write the bytes into filename.wav.
 
-    Prerequisites: pip install yt-dlp; have ffmpeg.exe as well.
+    Prerequisites: pip install yt-dlp; have ffmpeg as well.
     """
     fname = urandom(16).hex()
     with ZipFile("ffmpeg.zip", "r") as zf:

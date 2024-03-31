@@ -4,7 +4,7 @@ import streamlit as st
 import vertexai
 from youtube_transcript_api import YouTubeTranscriptApi
 from vertexai.generative_models import GenerativeModel, Part
-from tts import Generate
+from voice_code.tts import Generate
 # from dotenv import load_dotenv
 
 EASY = 0

@@ -166,10 +166,10 @@ def vocalize(file_path: str):
 def display_voice(answer):
     """Generate the voice component on screen"""
     if st.session_state.get('transcript') is not None:
-        #vocal_filename = Generate(st.session_state["url"], answer)
+        vocal_filename = Generate(st.session_state["url"], answer)
         st.subheader("Response")
         st.write(answer)
-        #vocalize(vocal_filename)
+        vocalize(vocal_filename)
     else:
         print("Error: Transcript has not been loaded")
 

@@ -32,16 +32,16 @@ def start():
     question = st.text_input("What's your question?")
 
     if st.button(label="Submit Question"):
-        if st.session_state.get("submit_pressed") and st.session_state.get("url_is_valid") is not None:
+        if not st.session_state.get("submit_pressed") and st.session_state.get("url_is_valid") is not None:
             st.session_state["submit_pressed"] = True
 
             answer = prompt(question, st.session_state.get('transcript'))
 
             if st.session_state.get('transcript') is not None:
-                vocal_filename = Generate(st.session_state["url"], answer)
+                #vocal_filename = Generate(st.session_state["url"], answer)
                 st.subheader("Response")
                 st.write(answer)
-                vocalize(vocal_filename)
+                #vocalize(vocal_filename)
             else:
                 print("Error: Transcript has not been loaded")
         else:
@@ -77,7 +77,8 @@ def prompt(question: str, transcript: str) -> str:
 
     #create the prompt
     prompt_message = """
-    Answer the question only using the transcript of the video given:
+    Answer the question only using the transcript of the video given. Respond to me as
+    if you are the person speaking in the video:
 
     ## Question:
     {question}
@@ -86,8 +87,11 @@ def prompt(question: str, transcript: str) -> str:
     """.format(question=question, transcript=transcript)
 
     #generate and return the response to the prompt
-    response = model.generate_content(prompt_message)
-    return response.text
+    try:
+        response = model.generate_content(prompt_message)
+        return response.text
+    except:
+        print("Too many requests")
 
 
 def submit_url(url: str):

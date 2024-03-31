@@ -12,6 +12,10 @@ os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "./audio-recognizer-418819-098598
 status_msg = ""
 
 def start():
+    #initialize variables for the first time
+    if st.session_state.get("submit_pressed") is None:
+        st.session_state["submit_pressed"] = False
+
     st.title("Select your video")
 
     # submit the URL that the user inputs into the text field
@@ -28,16 +32,23 @@ def start():
     question = st.text_input("What's your question?")
 
     if st.button(label="Submit Question"):
-        if st.session_state.get("url_is_valid") is not None:
-            answer = prompt(question, st.session_state['transcript'])
-            vocal_filename = Generate(st.session_state["url"], answer)
-            # st.audio()
-            st.subheader("Response")
-            st.write(answer)
+        if st.session_state.get("submit_pressed") and st.session_state.get("url_is_valid") is not None:
+            st.session_state["submit_pressed"] = True
+
+            answer = prompt(question, st.session_state.get('transcript'))
+
+            if st.session_state.get('transcript') is not None:
+                vocal_filename = Generate(st.session_state["url"], answer)
+                st.subheader("Response")
+                st.write(answer)
+                vocalize(vocal_filename)
+            else:
+                print("Error: Transcript has not been loaded")
         else:
             print("No answer generated since URL is invalid")
 
-    vocalize(vocal_filename)
+    st.session_state["submit_pressed"] = False
+
 
 def load_transcript(url: str) -> str:
     """Attempt to load the transcript of the video; returns the transcript if found

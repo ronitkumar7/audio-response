@@ -4,6 +4,9 @@ from os import system, urandom, remove
 from os.path import exists
 from zipfile import ZipFile
 
+device = "cuda" if is_available() else "cpu"
+tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2").to(device)
+
 def Generate(yt_url: str, text: str) -> str:
     """
     Use YouTube video 'yt_url' as a reference voice.
@@ -31,8 +34,6 @@ def Generate(yt_url: str, text: str) -> str:
     system(f"ffmpeg -i {fin} {fname}.wav")
     remove(fin)
 
-    device = "cuda" if is_available() else "cpu"
-    tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2").to(device)
     tts.tts_to_file(
         text=text, speaker_wav=f"{fname}.wav",
         language="en", file_path=f"{fname}.ts.wav"

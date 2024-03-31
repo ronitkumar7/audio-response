@@ -28,7 +28,7 @@ def start():
     question = st.text_input("What's your question?")
 
     if st.button(label="Submit Question"):
-        if st.session_state["url_is_valid"]:
+        if st.session_state.get("url_is_valid") is not None:
             answer = prompt(question, st.session_state['transcript'])
             Generate(st.session_state["url"], answer)
             # st.audio()

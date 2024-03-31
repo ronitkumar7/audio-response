@@ -1,4 +1,5 @@
 import os
+import time
 import streamlit as st
 import vertexai
 from youtube_transcript_api import YouTubeTranscriptApi
@@ -8,8 +9,6 @@ from tts import Generate
 
 # load_dotenv()
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = r"C:\Users\Aidan\GenAI\audio-response\audio-recognizer-418819-098598b73935.json"
-status_msg = ""
-
 
 def start():
     st.title("Select your video")
@@ -30,13 +29,14 @@ def start():
     if st.button(label="Submit Question"):
         if st.session_state.get("url_is_valid") is not None:
             answer = prompt(question, st.session_state['transcript'])
-            Generate(st.session_state["url"], answer)
+            vocal_filename = Generate(st.session_state["url"], answer)
             # st.audio()
             st.subheader("Response")
             st.write(answer)
         else:
             print("No answer generated since URL is invalid")
 
+    vocalize(vocal_filename)
 
 def load_transcript(url: str) -> str:
     """Attempt to load the transcript of the video; returns the transcript if found
@@ -94,6 +94,22 @@ def submit_url(url: str):
     except:
         print("Error: No transcript found")
         return False
+
+
+#TODO implement
+def vocalize(file_path: str):
+    """Play the voice of the speaker in the video answering the
+    quesiton posed by the user"""
+
+    # play the audio file
+    if os.path.isfile(file_path):
+        print("file exists")
+        audio_file = open(file_path, "rb")
+        audio_bytes = audio_file.read()
+
+        st.audio(audio_bytes, format="audio/wav")
+    else:
+        print("Error: file at " + file_path + " is not a file")
 
 
 # start the program

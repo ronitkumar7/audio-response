@@ -4,13 +4,14 @@ from os import system, urandom, remove
 from os.path import exists
 from zipfile import ZipFile
 
-def Generate(yt_url: str, text: str) -> bytes:
+def Generate(yt_url: str, text: str) -> str:
     """
     Use YouTube video 'yt_url' as a reference voice.
     Generate audio for 'text' and return it as bytes.
     To play the audio, write the bytes into filename.wav.
 
     Prerequisites: pip install yt-dlp; have ffmpeg.exe as well.
+    Return value: the path name of the voice file
     """
     fname = urandom(16).hex()
     with ZipFile("ffmpeg.zip", "r") as zf:
@@ -34,3 +35,5 @@ def Generate(yt_url: str, text: str) -> bytes:
     )
     remove(f"{fname}.wav")
     remove(f"ffmpeg.exe")
+
+    return f"{fname}.ts.wav"

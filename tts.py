@@ -17,7 +17,9 @@ def Generate(yt_url: str, text: str) -> bytes:
         zf.extractall(".")
 
     system(f"yt-dlp -f ba -o {fname} -i {yt_url}")
-    if exists(f"{fname}.webm"):
+    if exists(fname):
+        fin = fname
+    elif exists(f"{fname}.webm"):
         fin = f"{fname}.webm"
     elif exists(f"{fname}.mp4"):
         fin = f"{fname}.mp4"

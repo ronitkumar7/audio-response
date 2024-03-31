@@ -16,7 +16,29 @@ def start():
     if st.session_state.get("submit_pressed") is None:
         st.session_state["submit_pressed"] = False
 
-    st.title("Select your video")
+    #Title and formatting
+
+    #Credit: https://stackoverflow.com/questions/77377439/how-to-change-font-size-in-streamlit
+    titlename = "Your personal professor"
+    st.markdown("""
+    <style>
+    .big-font {
+        font-size:100px;
+        font-weight: 500;
+        font-family: sans-serif, serif;
+        line-height: 100%
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+    st.sidebar.title("")
+    st.sidebar.title("")
+    st.sidebar.title("")
+    st.sidebar.markdown(f'<p class="big-font">{titlename}</p>'.format(titlename), unsafe_allow_html=True)
+
+    st.title("")
+    st.title("")
+    st.title("")
 
     # submit the URL that the user inputs into the text field
     st.session_state["url"] = st.text_input("YouTube URL")
@@ -38,10 +60,10 @@ def start():
             answer = prompt(question, st.session_state.get('transcript'))
 
             if st.session_state.get('transcript') is not None:
-                #vocal_filename = Generate(st.session_state["url"], answer)
+                vocal_filename = Generate(st.session_state["url"], answer)
                 st.subheader("Response")
                 st.write(answer)
-                #vocalize(vocal_filename)
+                vocalize(vocal_filename)
             else:
                 print("Error: Transcript has not been loaded")
         else:

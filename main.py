@@ -104,10 +104,10 @@ def prompt(question: str, transcript: str, level: int) -> str:
 
     #Enable/disable the 'explain it like I'm 5' prompt
     if level == EASY:
-        easy_prompt = "The first thing you say should always be an analogy of the problem. " \
-                      "Always explain it to me in simple enough terms that a ten year-old " \
-                      "could understand. Do not mention the fact that you are speaking to a " \
-                      "ten year-old. Only answer the question and no other questions."
+        easy_prompt = "The first thing you say should always be an analogy of the problem in " \
+                      "terms of situations or objects encountered in everyday life. " \
+                      "Explain it to me in simple terms without mentioning that you are "\
+                      "explaining it to me in simple terms"
     else:
         easy_prompt = ""
 
